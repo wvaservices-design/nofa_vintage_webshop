@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noah Classico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="{{ url_for('static', filename='logo.svg') }}" type="image/svg+xml">
+<meta property="og:title" content="Noah Classico — Vintage </head> Design">
+<meta property="og:description" content="Handpicked meubels en objecten. Bied mee op unieke stukken.">
+<meta property="og:image" content="{{ url_for('static', filename='logo.svg', _external=True) }}">
+<meta property="og:url" content="{{ request.url_root }}">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.svg') }}" alt="Noah Classico Logo">
+            <h1>Noah Classico</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Collectie</a>
+            <a href="{{ url_for('admin') }}">Beheer</a>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        © Noah Classico — vintage & design. Alle rechten voorbehouden.
+    </footer>
+</body>
+</html>
+<!-- Lichtbak overlay -->
+<div id="lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.9);justify-content:center;align-items:center;z-index:9999;">
+  <img id="lightbox-img" src="" style="max-width:90%;max-height:90%;border-radius:var(--radius);box-shadow:0 0 20px rgba(0,0,0,0.5);">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.querySelectorAll('.product-image, .product-detail-image').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+  });
+</script>
+
+<!-- Klassieke headerbar -->
+<div class="header-bar">
+  <div class="container" style="padding:14px 0">
+    <div class="brandmark">
+      <img src="{{ url_for('static', filename='logo.svg') }}" alt="Noah Classico" style="width:36px;height:36px">
+      <h1>Noah Classico</h1>
+    </div>
+    <div class="rule"><div class="dot"></div></div>
+    <nav style="margin-top:12px">
+      <a class="btn" href="{{ url_for('index') }}">Collectie</a>
+      <a class="btn" href="{{ url_for('admin') }}" style="margin-left:8px">Beheer</a>
+    </nav>
+  </div>
+</div>
+
+<!-- Klassieke footer -->
+<footer>
+  <div class="container" style="padding:24px 0">
+    <div class="footer-note">
+      <span>© Noah Classico — vintage & design</span>
+      <span class="sep"></span>
+      <span>Alle rechten voorbehouden</span>
+    </div>
+  </div>
+</footer>

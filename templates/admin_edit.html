@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 style="font-family:'Playfair Display',serif;margin-top:0">Bewerken: {{ product['title'] }}</h1>
+
+  <div class="card" style="margin-bottom:18px">
+    <div class="pad">
+      <form method="post" enctype="multipart/form-data" style="display:grid;gap:10px;max-width:600px">
+        <input type="hidden" name="action" value="update_product">
+        <label>Titel</label>
+        <input type="text" name="title" value="{{ product['title'] }}" required>
+        <label>Beschrijving</label>
+        <textarea name="description">{{ product['description'] }}</textarea>
+        <label>Startprijs</label>
+        <input type="text" name="price_start" value="{{ '%.2f'|format(product['price_start']) }}" required>
+        <label>Extra afbeeldingen toevoegen (optioneel, meerdere toegestaan)</label>
+        <input type="file" name="images" accept="image/*" multiple>
+        <small class="meta">Nieuwe afbeeldingen worden achteraan toegevoegd. De hoofdfoto is de eerste afbeelding.</small>
+        <div>
+          <button class="btn primary" type="submit">Opslaan</button>
+          <a class="btn" href="{{ url_for('admin') }}">Terug naar overzicht</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <h3>Huidige afbeeldingen</h3>
+  <div class="grid">
+    {% for img in images %}
+      <div class="card">
+        <img src="{{ url_for('uploaded_file', filename=img['filename']) }}" alt="" class="product-image">
+        <div class="pad" style="display:flex;justify-content:space-between;align-items:center">
+          <span class="meta">#{{ loop.index }}</span>
+          <form method="post" action="{{ url_for('admin_delete_image', image_id=img['id']) }}" onsubmit="return confirm('Afbeelding verwijderen?');">
+            <button class="btn" type="submit">Verwijderen</button>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <div class="meta">Geen afbeeldingen gevonden.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

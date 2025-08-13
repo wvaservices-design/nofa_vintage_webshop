@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 style="font-family:'Playfair Display',serif;margin-top:0">Beheer</h1>
+  <div class="card" style="margin-bottom:18px">
+    <div class="pad">
+      <h3 style="margin:0 0 8px 0">Nieuw product</h3>
+      <form method="post" enctype="multipart/form-data" style="display:grid;gap:10px;max-width:520px">
+        <input type="hidden" name="action" value="add_product">
+        <input type="text" name="title" placeholder="Titel" required>
+        <textarea name="description" placeholder="Korte beschrijving"></textarea>
+        <input type="text" name="price_start" placeholder="Startprijs (bijv. 50)" required>
+        <label>Afbeeldingen (meerdere toegestaan)</label>
+        <input type="file" name="images" accept="image/*" multiple required>
+        <small class="meta">Tip: de <strong>eerste</strong> file wordt de hoofdfoto.</small>
+        <button class="btn primary" type="submit">Toevoegen</button>
+      </form>
+    </div>
+  </div>
+
+  <h3 style="margin:0 0 10px 0">Overzicht</h3>
+  <div class="grid">
+    {% for p in products %}
+      <div class="card">
+        <img src="{{ url_for('uploaded_file', filename=p['image_filename']) if p['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ p['title'] }}">
+        <div class="pad">
+          <div style="font-weight:700">{{ p['title'] }}</div>
+          <div class="meta">Start: €{{ '%.2f'|format(p['price_start']) }} · Status: {% if p['is_sold'] %}Verkocht{% else %}Actief{% endif %}</div>
+          <div style="margin-top:10px">
+            <form method="post" action="{{ url_for('mark_sold', pid=p['id']) }}">
+              <button class="btn" {% if p['is_sold'] %}disabled{% endif %} type="submit">Markeer verkocht</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

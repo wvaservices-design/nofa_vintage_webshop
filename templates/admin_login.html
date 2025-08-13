@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card" style="max-width:420px;margin:0 auto"><div class="pad">
+    <h1 style="font-family:'Playfair Display',serif;margin-top:0">Admin login</h1>
+    <form method="post" action="{{ url_for('admin') }}" style="display:grid;gap:10px">
+      <input type="hidden" name="action" value="login">
+      <input type="password" name="password" placeholder="Admin wachtwoord" required>
+      <button class="btn primary" type="submit">Inloggen</button>
+    </form>
+  </div></div>
+{% endblock %}

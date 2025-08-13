@@ -1,0 +1,12 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Noah Classico">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b58934"/>
+      <stop offset="100%" stop-color="#e6c076"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#g)" stroke="#d1b06a" stroke-width="2"/>
+  <g fill="#0f172a" font-family="Playfair Display, serif" font-size="48" font-weight="700" text-anchor="middle">
+    <text x="60" y="72">N</text>
+  </g>
+</svg>

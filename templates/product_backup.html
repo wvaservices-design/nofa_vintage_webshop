@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+  <a href="{{ url_for('index') }}" class="btn">← Terug</a>
+  <div class="grid" style="margin-top:16px;grid-template-columns: 1.2fr 1fr">
+    <div class="card">
+      <img src="{{ url_for('uploaded_file', filename=product['image_filename']) if product['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ product['title'] }}">
+    </div>
+    <div>
+      <h1 style="font-family:'Playfair Display',serif;margin-top:0">{{ product['title'] }}</h1>
+      <p class="meta">{{ product['description'] }}</p>
+      <p class="meta">Startprijs: €{{ '%.2f'|format(product['price_start']) }}</p>
+      <p class="price">Huidig hoogste bod: €{{ '%.2f'|format(highest or product['price_start']) }}</p>
+      {% if not product['is_sold'] %}
+      <h3 style="margin-top:18px">Plaats een bod</h3>
+      <form method="post" action="{{ url_for('place_bid', pid=product['id']) }}" style="display:grid;gap:10px;max-width:420px">
+        <div><label>Naam</label><input type="text" name="name" placeholder="Je naam" required></div>
+        <div><label>E-mail</label><input type="email" name="email" placeholder="Je e-mail" required></div>
+        <div><label>Bedrag (in euro)</label><input type="text" name="amount" placeholder="Bijv. 125" required></div>
+        <button class="btn primary" type="submit">Bied</button>
+      </form>
+      {% else %}
+      <p><strong>Verkocht</strong></p>
+      {% endif %}
+      <h3 style="margin-top:22px">Recentste biedingen</h3>
+      <ul class="bids-list" style="list-style:none;padding:0;margin:0">
+        {% for b in bids %}
+          <li style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)">
+            <span>{{ b['name']|e }}</span>
+            <span>€{{ '%.2f'|format(b['amount']) }}</span>
+          </li>
+        {% else %}
+          <li class="meta">Nog geen biedingen.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

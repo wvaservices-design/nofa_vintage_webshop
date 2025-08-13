@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="nl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noah Classico</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="color-scheme" content="light"></head>
+<body>
+<header class="header"><div class="container header-inner">
+  <a href="{{ url_for('index') }}" class="brand" style="text-decoration:none">
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="Noah Classico" />
+    <div class="title" style="font-family:'Playfair Display', serif">Noah Classico</div>
+  </a>
+  <nav class="nav">
+    <a href="{{ url_for('index') }}">Collectie</a>
+    <a href="{{ url_for('admin') }}">Beheer</a>
+  </nav>
+</div></header>
+<main class="container" style="margin-top:24px">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{category}}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer class="footer"><div class="container footer-inner">
+  © Noah Classico — vintage & design. Alle rechten voorbehouden.
+</div></footer>
+</body></html>

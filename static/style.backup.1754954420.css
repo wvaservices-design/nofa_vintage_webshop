@@ -1,0 +1,873 @@
+:root{
+  --bg:#f7f5f2;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+  --radius:14px;--shadow:0 6px 24px rgba(0,0,0,.06);
+}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:50;background:rgba(247,245,242,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{width:36px;height:36px}
+nav a{margin-left:14px;text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:10px}
+nav a:hover{color:var(--ink);background:#fff;border:1px solid var(--line)}
+main{padding:24px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:14px 16px}
+.meta{color:var(--muted);font-size:.92rem}
+.btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--ink);text-decoration:none;color:var(--ink);background:#fff;font-weight:600}
+.btn.primary{background:#111;color:#fff;border-color:#111}
+input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:1rem}
+.flash{padding:12px 14px;border-radius:12px;margin:12px 0}
+.flash.error{background:#fee2e2;border:1px solid #fecaca}
+.flash.success{background:#dcfce7;border:1px solid #bbf7d0}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted)}
+
+/* --- Noah Classico: afmetingen productafbeeldingen --- */
+.product-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+}
+header h1, header .logo-text {
+    color: #000 !important; /* Zwart */
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Detailpagina: begrens breedte */
+.product-detail-image {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: var(--radius);
+}
+
+/* Kleinere thumbnails in het overzicht */
+.product-image {
+  max-width: 100%;
+  max-height: 200px; /* thumbnail hoogte */
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer; /* laat zien dat je kan klikken */
+}
+
+/* --- Klassiek thema Noah Classico --- */
+:root{
+  --gold:#b58934;
+  --gold-soft:#d6b675;
+  --ink:#1f2937;
+  --paper:#f7f5f2;
+  --line:#e5e7eb;
+  --radius:14px;
+}
+body{background:var(--paper);}
+header{border-bottom:1px solid var(--line)}
+.header-bar{
+  background:linear-gradient(180deg, rgba(245,240,230,.8), rgba(245,240,230,.6));
+  border-bottom:1px solid rgba(181,137,52,.25);
+}
+.brandmark{
+  display:flex;align-items:center;gap:12px;
+}
+.brandmark h1{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;margin:0;letter-spacing:.3px
+}
+.rule{
+  height:10px; position:relative; margin:8px 0 0;
+}
+.rule:before, .rule:after{
+  content:""; position:absolute; top:4px; width:40%; height:1px; background:linear-gradient(90deg, transparent, #000000, transparent);
+}
+.rule:before{left:4%} .rule:after{right:4%}
+.rule .dot{
+  width:10px;height:10px;border-radius:999px;margin:0 auto;background:#000000;box-shadow:0 0 0 4px rgba(181,137,52,.15)
+}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* Cards wat chiquer */
+.card{border-radius:18px;box-shadow:0 10px 28px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.05);}
+.card .pad{padding:18px}
+
+/* Knoppen */
+.btn{border-radius:12px}
+.btn.primary{background:var(--ink);border-color:var(--ink)}
+.btn.primary:hover{background:#111}
+
+/* Titels */
+h1,h2,h3{font-family:'Playfair Display',serif}
+.meta{color:#6b7280}
+
+/* Product grid met gelijke hoogte thumbnails */
+.product-image{
+  width:100%;
+  max-width:100%;
+  height:200px;          /* vaste thumbnail-hoogte */
+  object-fit:cover;
+  display:block;
+  border-top-left-radius:18px;border-top-right-radius:18px;
+  cursor:pointer;
+}
+
+/* Detailafbeelding met kader */
+.product-detail-image{
+  max-width:520px;width:100%;height:auto;display:block;margin:0 auto 20px;
+  border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08);
+  outline:1px solid rgba(181,137,52,.25)
+}
+
+/* Footer */
+footer{background:linear-gradient(0deg, rgba(245,240,230,.7), rgba(245,240,230,.4));border-top:1px solid rgba(181,137,52,.25)}
+.footer-note{display:flex;align-items:center;gap:10px;justify-content:center}
+.footer-note .sep{width:8px;height:8px;border-radius:999px;background:#000000}
+
+/* --- Klassiek thema Noah Classico --- */
+:root{
+  --gold:#b58934;
+  --gold-soft:#d6b675;
+  --ink:#1f2937;
+  --paper:#f7f5f2;
+  --line:#e5e7eb;
+  --radius:14px;
+}
+body{background:var(--paper);}
+header{border-bottom:1px solid var(--line)}
+.header-bar{
+  background:linear-gradient(180deg, rgba(245,240,230,.8), rgba(245,240,230,.6));
+  border-bottom:1px solid rgba(181,137,52,.25);
+}
+.brandmark{
+  display:flex;align-items:center;gap:12px;
+}
+.brandmark h1{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;margin:0;letter-spacing:.3px
+}
+.rule{
+  height:10px; position:relative; margin:8px 0 0;
+}
+.rule:before, .rule:after{
+  content:""; position:absolute; top:4px; width:40%; height:1px; background:linear-gradient(90deg, transparent, #000000, transparent);
+}
+.rule:before{left:4%} .rule:after{right:4%}
+.rule .dot{
+  width:10px;height:10px;border-radius:999px;margin:0 auto;background:#000000;box-shadow:0 0 0 4px rgba(181,137,52,.15)
+}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* Cards wat chiquer */
+.card{border-radius:18px;box-shadow:0 10px 28px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.05);}
+.card .pad{padding:18px}
+
+/* Knoppen */
+.btn{border-radius:12px}
+.btn.primary{background:var(--ink);border-color:var(--ink)}
+.btn.primary:hover{background:#111}
+
+/* Titels */
+h1,h2,h3{font-family:'Playfair Display',serif}
+.meta{color:#6b7280}
+
+/* Product grid met gelijke hoogte thumbnails */
+.product-image{
+  width:100%;
+  max-width:100%;
+  height:200px;          /* vaste thumbnail-hoogte */
+  object-fit:cover;
+  display:block;
+  border-top-left-radius:18px;border-top-right-radius:18px;
+  cursor:pointer;
+}
+
+/* Detailafbeelding met kader */
+.product-detail-image{
+  max-width:520px;width:100%;height:auto;display:block;margin:0 auto 20px;
+  border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08);
+  outline:1px solid rgba(181,137,52,.25)
+}
+
+/* Footer */
+footer{background:linear-gradient(0deg, rgba(245,240,230,.7), rgba(245,240,230,.4));border-top:1px solid rgba(181,137,52,.25)}
+.footer-note{display:flex;align-items:center;gap:10px;justify-content:center}
+.footer-note .sep{width:8px;height:8px;border-radius:999px;background:#000000}
+
+/* --- FIX: image sizing overrides --- */
+.product-image {
+  width: 100% !important;
+  height: 180px !important;      /* smaller thumbnails */
+  max-height: 180px !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-top-left-radius: 18px !important;
+  border-top-right-radius: 18px !important;
+  margin: 0 auto !important;
+  cursor: pointer;
+}
+
+.product-detail-image {
+  max-width: 520px !important;
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto 20px !important;
+  border-radius: 18px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08) !important;
+  outline: 1px solid rgba(181,137,52,.25) !important;
+}
+
+/* --- FIX: voorkom uitrekken van alle images in cards --- */
+.card img {
+  width: 100% !important;
+  height: auto !important;       /* reset elke geforceerde hoogte */
+  display: block !important;
+}
+
+/* Thumbnails in overzicht: gefixeerde beeldverhouding (cropt netjes) */
+.product-image {
+  aspect-ratio: 4 / 3;           /* kies 4:3; wil je breder, gebruik 3/2 */
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;  /* vult de ratio zonder rekken (cropt) */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  cursor: pointer;
+}
+
+/* Detailpagina: geen rekken, maximaal 520px breed */
+.product-detail-image {
+  max-width: 520px !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important; /* toon hele foto zonder croppen */
+  display: block !important;
+  margin: 0 auto 20px !important;
+}
+
+.product-image {
+  aspect-ratio: 3 / 2;
+}
+
+/* === FIX: correcte weergave productfoto's === */
+.card img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+/* Thumbnails in overzicht */
+.product-image {
+  aspect-ratio: 3 / 2;           /* mooie brede verhouding */
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;  /* vult de ratio zonder rekken, cropt zo nodig */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  cursor: pointer;
+}
+
+/* Foto op detailpagina */
+.product-detail-image {
+  max-width: 520px !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important; /* toont hele foto zonder croppen */
+  display: block !important;
+  margin: 0 auto 20px !important;
+}
+
+/* Smallere, compacte thumbnails */
+.product-image {
+  width: 100% !important;
+  max-width: 260px !important;   /* maximale breedte per foto */
+  height: auto !important;
+  max-height: 180px !important;  /* vaste max-hoogte */
+  aspect-ratio: 4 / 3;           /* klassieke verhouding */
+  object-fit: cover !important;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+/* Center de grid en geef max breedte */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.product-list .card {
+  flex: 0 0 auto;
+}
+
+/* Klassieke achtergrondkleur voor de hele site */
+body {
+  background-color: #f5f1e6;   /* warm beige */
+  color: #2f2f2f;
+}
+
+/* Kaarten iets meer laten zweven */
+.card {
+  background-color: #ffffff;
+  border: 1px solid rgba(181,137,52,.25);
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding-bottom: 10px;
+}
+
+/* Header en footer met een klassieke goudtint */
+header, footer {
+  background-color: #b58934;
+  color: #fff;
+  padding: 16px 0;
+}
+
+/* === FINAL THEME OVERRIDES (Noah Classico) === */
+:root{
+  --paper:#f5f1e6; --ink:#1f2937; --gold:#b58934; --line:#e5e7eb;
+}
+body{ background:var(--paper); color:var(--ink); }
+
+/* Compacte, centrale productgrid + niet te brede kaarten */
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; align-items:start; }
+.card{ max-width:320px; margin:0 auto; border:1px solid rgba(181,137,52,.25); border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+
+/* FORCEER goede image-scaling (nooit uitrekken) */
+.card img{ width:100% !important; height:auto !important; display:block !important; }
+
+/* Thumbnails in overzicht: 4:3, cropt netjes, niet te groot */
+.product-image{
+  aspect-ratio: 4 / 3;
+  width:100% !important; height:auto !important; object-fit:cover !important;
+  border-top-left-radius:18px; border-top-right-radius:18px; cursor:pointer;
+}
+
+/* Detailfoto: maximaal 520px, nooit rekken */
+.product-detail-image{
+  max-width:520px !important; width:100% !important; height:auto !important;
+  object-fit:contain !important; display:block !important; margin:0 auto 20px !important;
+  border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+/* Klassieke header/footer tinten */
+header, footer{ background:linear-gradient(0deg, rgba(245,240,230,.8), rgba(245,240,230,.5)); }
+
+/* --- Noah Classico titel goudkleurig --- */
+header h1, header .site-title {
+  color: #000000 !important; /* Goud */
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* --- Achtergrond achter thumbnails lichtgrijs --- */
+.product-card, .card {
+  background-color: #f5f5f5 !important;
+  border-radius: 18px;
+  padding: 8px;
+}
+
+/* Footer zwart + donkere achtergrond */
+footer {
+  background-color: #1e1e1e !important; /* Donkergrijs/zwart */
+  color: #000000 !important; /* Zwart */
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+/* --- Luxe rand + schaduw om thumbnails --- */
+.product-card, .card {
+  background-color: #f5f5f5 !important;
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* --- Hover effect voor thumbnails --- */
+.product-card:hover, .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* --- Hover effect voor productafbeelding: licht inzoomen --- */
+.product-image {
+  transition: transform 0.3s ease;
+}
+.product-card:hover .product-image {
+  transform: scale(1.03);
+}
+
+/* --- Knoppen klassiek en chique --- */
+button, .btn {
+  background-color: #000000 !important; /* goud */
+  color: white !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+button:hover, .btn:hover {
+  background-color: #a88c3b !important;
+  transform: translateY(-2px);
+}
+
+/* --- Achtergrond van product detailpagina lichtgrijs --- */
+.product-detail {
+  background-color: #f5f5f5 !important;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* Hele pagina lichtgrijze achtergrond */
+body {
+  background-color: #f5f5f5 !important;
+}
+
+/* Zelfde achtergrondkleur voor header en footer */
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+/* Zelfde achtergrondkleur voor header en footer */
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+/* Header & Footer stijl */
+header {
+    background-color: #1a1a1a;
+    color: #000000; /* goudkleur voor tekst */
+    padding: 20px;
+}
+
+header h1, header .logo-text {
+    color: #000 !important; /* goudkleur geforceerd */
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+/* Algemene pagina achtergrond */
+body {
+    background-color: #f5f5f5; /* lichtgrijs */
+}
+
+/* Header stijl */
+header {
+    background-color: #1a1a1a;
+    color: #000000; /* goudkleur tekst */
+    padding: 20px;
+}
+
+header h1, header .logo-text {
+    color: #000 !important; /* goudkleur geforceerd */
+}
+
+/* Footer stijl */
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+/* Forceer titel Noah Classico zwart met klassiek font */
+header h1, header .logo-text {
+    color: #000 !important;
+    font-family: "Playfair Display", serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+}
+
+
+/* FORCE BLACK TITLE (overrulet alles) */
+header h1.site-title,
+header .site-title,
+header .brand .title,
+.brandmark h1,
+.logo .site-title,
+header h1,
+header .logo-text {
+  color:#000 !important;
+  font-family:"Playfair Display", serif !important;
+  font-weight:700 !important;
+  letter-spacing:1px !important;
+}
+
+/* Gouden knoppen */
+.btn.primary {
+    background-color: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #fff !important;
+}
+
+.btn.primary:hover {
+    background-color: #b58b2b !important;
+    border-color: #b58b2b !important;
+}
+
+/* --- Gouden accenten (klassiek) --- */
+
+/* Kaarten: subtiele rand + hoverglow in goud */
+.card{
+  border: 1px solid rgba(212,175,55,.22);
+  transition: box-shadow .25s ease, transform .2s ease, border-color .2s ease;
+}
+.card:hover{
+  border-color:#d4af37;
+  box-shadow: 0 10px 28px rgba(212,175,55,.22);
+  transform: translateY(-2px);
+}
+
+/* Badge in goudtint */
+.badge{
+  border-color:#d4af37 !important;
+  color:#d4af37 !important;
+  background: rgba(212,175,55,.08) !important;
+}
+
+/* Navigatie hover in goud */
+nav a:hover{
+  color:#d4af37 !important;
+  border-color:#d4af37 !important;
+}
+
+/* Knoppen: al goud, maar geef ook een nette focusring */
+.btn, .btn.primary{
+  box-shadow: 0 2px 0 rgba(0,0,0,.12);
+}
+.btn:focus, .btn.primary:focus{
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+
+/* Prijs subtieler zichtbaar maar klassiek */
+.price{
+  letter-spacing:.2px;
+}
+
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap');
+
+/* Pas globale font aan */
+body {
+    font-family: 'Lora', serif !important;
+}
+
+/* Titels en logo in klassiek lettertype */
+header h1, header .logo-text, .card h2, .product-title {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 700;
+}
+
+/* --- Wit vlak onderaan verwijderen --- */
+html, body {
+    height: auto !important;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* zelfde lichtgrijs als de rest */
+}
+
+/* Main sectie netjes afsluiten boven footer */
+main {
+    padding-bottom: 40px !important;
+}
+
+/* Footer direct aansluitend op content */
+footer {
+    margin-top: 0 !important;
+}
+
+/* Gallery knoppen iets prominenter */
+#galleryOverlay .btn{
+  background:#000 !important; color:#fff !important; border:1px solid rgba(255,255,255,.2) !important;
+}
+#galleryOverlay .btn:hover{ background:#111 !important; }
+
+/* Thumbnail hoogte in grid consistent */
+.product-image{ aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Afbeeldingswrap om lint netjes te positioneren */
+.image-wrap{ position:relative; }
+.image-wrap img{ display:block; width:100%; }
+
+/* Rood lint schuin over de foto (links-onder naar rechts-boven) */
+.ribbon{
+  position:absolute;
+  top:12px; right:-40px;
+  transform: rotate(35deg);
+  background:#e11d48; /* rood */
+  color:#fff;
+  padding:8px 48px;
+  font-weight:700;
+  letter-spacing:.5px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  text-transform:uppercase;
+  font-size:.9rem;
+  pointer-events:none;
+}
+
+/* --- Compactere header --- */
+header .wrap {
+    padding: 8px 12px; /* was meer, nu kleiner */
+}
+.logo img {
+    width: 28px; 
+    height: 28px;
+}
+header h1, header .logo-text {
+    font-size: 1.4rem; /* iets kleiner */
+}
+
+/* --- Responsive mobiele layout --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 12px;
+    }
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    nav a {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+    .card {
+        margin-bottom: 16px;
+    }
+    .product-detail-image {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) { header { padding: 6px 12px; } }
+
+/* Kleinere header */
+header {
+    padding: 10px 16px;
+    background-color: #1a1a1a;
+    color: #000;
+}
+
+/* Flexbox voor centreren */
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* midden */
+    gap: 12px;
+}
+
+/* Logo en tekst schalen met kleinere header */
+header .logo img {
+    width: 28px;
+    height: 28px;
+}
+header h1, header .logo-text {
+    font-size: 1.2rem;
+}
+
+/* Mobiel nog compacter */
+@media (max-width: 600px) {
+    header {
+        padding: 6px 12px;
+    }
+    header h1, header .logo-text {
+        font-size: 1rem;
+    }
+}
+
+/* Kleinere header */
+header {
+    padding: 10px 16px;
+    background-color: #1a1a1a;
+    color: #000;
+}
+
+/* Flexbox voor centreren */
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* midden */
+    gap: 12px;
+}
+
+/* Logo en tekst schalen met kleinere header */
+header .logo img {
+    width: 28px;
+    height: 28px;
+}
+header h1, header .logo-text {
+    font-size: 1.2rem;
+}
+
+/* Mobiel nog compacter */
+@media (max-width: 600px) {
+    header {
+        padding: 6px 12px;
+    }
+    header h1, header .logo-text {
+        font-size: 1rem;
+    }
+}
+
+/* --- Kleinere header --- */
+header {
+    padding: 10px 16px;
+    background-color: #1a1a1a;
+    color: #000;
+}
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+header .logo img {
+    width: 28px;
+    height: 28px;
+}
+header h1, header .logo-text {
+    font-size: 1.2rem;
+}
+
+/* Mobiel nog compacter */
+@media (max-width: 600px) {
+    header {
+        padding: 6px 12px;
+    }
+    header h1, header .logo-text {
+        font-size: 1rem;
+    }
+}
+
+/* --- Verkocht-lint schaalt mee --- */
+.product-card {
+    position: relative;
+}
+.sold-ribbon {
+    position: absolute;
+    top: 12px;
+    right: -35px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    padding: 5px 50px;
+    transform: rotate(45deg);
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.product-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+}
+
+/* --- Logo + titel links en groter --- */
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* alles naar links */
+    gap: 14px;
+}
+
+header .logo img {
+    width: 50px;  /* groter logo */
+    height: 50px;
+}
+
+header h1, header .logo-text {
+    font-size: 1.8rem; /* grotere titel */
+    font-weight: 700;
+}
+
+/* Mobiel responsief */
+@media (max-width: 600px) {
+    header .logo img {
+        width: 36px;
+        height: 36px;
+    }
+    header h1, header .logo-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Logo + titel links en groter --- */
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* alles naar links */
+    gap: 14px;
+}
+
+header .logo img {
+    width: 50px;  /* groter logo */
+    height: 50px;
+}
+
+header h1, header .logo-text {
+    font-size: 1.8rem; /* grotere titel */
+    font-weight: 700;
+}
+
+/* Mobiel responsief */
+@media (max-width: 600px) {
+    header .logo img {
+        width: 36px;
+        height: 36px;
+    }
+    header h1, header .logo-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Logo & titel links, menu rechts --- */
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* links logo/titel, rechts menu */
+}
+
+/* Logo groter */
+header .logo img {
+    width: 64px;
+    height: 64px;
+}
+
+header h1, header .logo-text {
+    font-size: 2rem; /* grotere titel */
+    font-weight: 700;
+}
