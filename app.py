@@ -600,6 +600,101 @@ def admin_test_email():
 
 
 
+
+@app.route("/admin/edit/<int:pid>", methods=["GET","POST"])
+def admin_edit(pid):
+    from flask import session
+    if not session.get("is_admin"):
+        abort(403)
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    # product ophalen
+    product = cur.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+    if not product:
+        conn.close()
+        flash("Product niet gevonden.", "error")
+        return redirect(url_for("admin"))
+
+    if request.method == "POST":
+        title = request.form.get("title","").strip()
+        description = request.form.get("description","").strip()
+        price_start = request.form.get("price_start","").strip()
+        is_sold = 1 if request.form.get("is_sold") == "on" else 0
+
+        if not title:
+            flash("Titel is verplicht.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        try:
+            price_start = float(price_start.replace(",", ".")) if price_start else product["price_start"]
+        except ValueError:
+            flash("Startprijs ongeldig.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        # velden bijwerken
+        cur.execute(
+            "UPDATE products SET title=?, description=?, price_start=?, is_sold=? WHERE id=?",
+            (title or product["title"], description, price_start, is_sold, pid)
+        )
+        conn.commit()
+
+        # Optioneel: extra foto's toevoegen als er een product_images tabel is
+        try:
+            cols = cur.execute("PRAGMA table_info(product_images)").fetchall()
+            has_images = bool(cols)
+        except Exception:
+            has_images = False
+
+        if has_images:
+            files = request.files.getlist("images")
+            saved = 0
+            for f in files:
+                if not f or not getattr(f, "filename", ""):
+                    continue
+                # Probeer Cloudinary, anders lokaal
+                url = None
+                try:
+                    if 'upload_to_cdn' in globals():
+                        url = upload_to_cdn(f, public_id_prefix="nofa")
+                except Exception:
+                    url = None
+                if url:
+                    filename = url
+                else:
+                    # lokaal opslaan
+                    if not allowed_file(f.filename):
+                        continue
+                    from werkzeug.utils import secure_filename
+                    import os
+                    filename = secure_filename(f.filename)
+                    save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                    base, ext = os.path.splitext(filename); i=1
+                    while os.path.exists(save_path):
+                        filename = f"{base}_{i}{ext}"; save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename); i+=1
+                    f.save(save_path)
+                # sort_order bepalen
+                rowo = cur.execute("SELECT COALESCE(MAX(sort_order), -1) as maxo FROM product_images WHERE product_id=?", (pid,)).fetchone()
+                next_order = (rowo["maxo"] + 1) if rowo else 0
+                cur.execute(
+                    "INSERT INTO product_images (product_id, filename, sort_order, created_at) VALUES (?,?,?,?)",
+                    (pid, filename, next_order, datetime.utcnow().isoformat())
+                )
+                saved += 1
+            if saved:
+                conn.commit()
+
+        conn.close()
+        flash("Product bijgewerkt.", "success")
+        return redirect(url_for("admin_edit", pid=pid))
+
+    conn.close()
+    return render_template("admin_edit.html", product=product)
+
+
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
