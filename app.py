@@ -185,7 +185,7 @@ def place_bid(pid):
         subject=f"Nieuw bod op {product['title']}",
         body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}"
     )
-    print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})@app.route("/admin", methods=["GET","POST"])
+    print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})@app.route("/admin", endpoint="admin", methods=["GET","POST"])
 def admin():
     admin_password = os.getenv("ADMIN_PASSWORD","")
     if request.method == "POST" and request.form.get("action") == "login":
