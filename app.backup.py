@@ -245,7 +245,7 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env  # vul je ADMIN_PASSWORD en (optioneel) SMTP in
 python app.py
-wva@air-van-wouter noah_classico_webshop
+wva@air-van-wouter nofa_vintage_webshop
 
 
 

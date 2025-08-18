@@ -1,4 +1,4 @@
-#!/Users/wva/Desktop/noah_classico_webshop/.venv/bin/python
+#!/Users/wva/Desktop/nofa_vintage_webshop/.venv/bin/python
 import sys
 from gunicorn.app.wsgiapp import run
 if __name__ == '__main__':
