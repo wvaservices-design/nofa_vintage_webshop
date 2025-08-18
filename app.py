@@ -214,6 +214,7 @@ def place_bid(pid):
         body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}"
     )
     print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})@app.route("/admin", endpoint="admin", methods=["GET","POST"])
+@app.route("/admin", methods=["GET","POST"], endpoint="admin")
 def admin():
     admin_password = os.getenv("ADMIN_PASSWORD","")
     if request.method == "POST" and request.form.get("action") == "login":
@@ -547,11 +548,6 @@ def admin_test_email():
     return "<pre>"+ "\n".join(lines) + "</pre>", (200 if ok else 500)
 
 
-@app.route("/admin", methods=["GET","POST"], endpoint="admin")
-def _admin_alias():
-    # Zoek de echte admin-view en roep die aan
-    try:
-        return admin_edit()
     except Exception:
         try:
             return admin()
