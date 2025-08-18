@@ -548,11 +548,6 @@ def admin_test_email():
     return "<pre>"+ "\n".join(lines) + "</pre>", (200 if ok else 500)
 
 
-    except Exception:
-        try:
-            return admin()
-        except Exception:
-            abort(404)
 
 if __name__ == "__main__":
     init_db()
