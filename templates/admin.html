@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <h1 style="font-family:'Playfair Display',serif;margin-top:0">Beheer</h1>
+  <p><a class="btn" href="{{ url_for('admin_bulk_import') }}">Bulk import (.zip)</a></p>
 
   <div class="card" style="margin-bottom:18px">
     <div class="pad">

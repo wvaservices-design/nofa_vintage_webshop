@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 style="font-family:'Playfair Display',serif;margin-top:0">Bulk import (.zip)</h1>
+  <div class="card" style="max-width:560px">
+    <div class="pad">
+      <form method="post" enctype="multipart/form-data" style="display:grid;gap:12px">
+        <input type="file" name="zipfile" accept=".zip" required>
+        <button class="btn primary" type="submit">Uploaden & Importeren</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
