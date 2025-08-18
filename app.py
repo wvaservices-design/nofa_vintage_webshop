@@ -1,6 +1,8 @@
 import os, sqlite3, smtplib
 from datetime import datetime
 from email.message import EmailMessage
+import cloudinary
+import cloudinary.uploader
 import zipfile, tempfile, shutil
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, abort, session
 from werkzeug.utils import secure_filename
@@ -15,6 +17,32 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-key")
 app.config["UPLOAD_FOLDER"] = UPLOAD_DIR
+
+# --- Cloudinary config ---
+cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME")
+api_key    = os.getenv("CLOUDINARY_API_KEY")
+api_secret = os.getenv("CLOUDINARY_API_SECRET")
+if cloud_name and api_key and api_secret:
+    cloudinary.config(cloud_name=cloud_name, api_key=api_key, api_secret=api_secret, secure=True)
+else:
+    print("Cloudinary niet geconfigureerd (missing env vars). Uploads vallen terug op lokaal pad.")
+
+def upload_to_cdn(file_storage, public_id_prefix="nofa"):
+    try:
+        if not (cloud_name and api_key and api_secret):
+            return None  # geen Cloudinary, caller kan lokaal opslaan
+        # file_storage: werkzeug FileStorage
+        res = cloudinary.uploader.upload(
+            file_storage,
+            folder=public_id_prefix,
+            resource_type="image",
+            overwrite=False
+        )
+        return res.get("secure_url") or res.get("url")
+    except Exception as e:
+        print("Cloudinary upload fout:", e)
+        return None
+
 app.config["MAX_CONTENT_LENGTH"] = 200 * 1024 * 1024  # 200MB
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 

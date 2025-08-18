@@ -30,7 +30,12 @@
             {% endif %}
         {% endwith %}
 
-        {% block content %}{% endblock %}
+        
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
+{% block content %}{% endblock %}
     </main>
 
     <footer>

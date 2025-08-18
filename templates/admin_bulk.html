@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <h1 style="font-family:'Playfair Display',serif;margin-top:0">Bulk import (.zip)</h1>
   <div class="card" style="max-width:560px">

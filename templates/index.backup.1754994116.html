@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <div style="display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:10px">
     <div>
@@ -16,7 +21,7 @@
         <div class="image-wrap">
           <a href="{{ url_for('product_detail', pid=p['id']) }}{% if count>1 %}?gallery=1{% endif %}">
             <img class="product-image"
-                 src="{{ url_for('uploaded_file', filename=cover) if cover else url_for('static', filename='placeholder.png') }}"
+                 src="{{ img_src(cover) if cover else url_for('static', filename='placeholder.png') }}"
                  alt="{{ p['title'] }}">
           </a>
           {% if p['is_sold'] %}

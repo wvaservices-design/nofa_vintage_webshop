@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <a href="{{ url_for('index') }}" class="btn">← Terug</a>
 
@@ -8,7 +13,7 @@
         {% set cover = (images[0]['filename'] if images else product['image_filename']) %}
         <div class="image-wrap">
           <img class="product-detail-image"
-               src="{{ url_for('uploaded_file', filename=cover) if cover else url_for('static', filename='placeholder.png') }}"
+               src="{{ img_src(cover) if cover else url_for('static', filename='placeholder.png') }}"
                alt="{{ product['title'] }}" id="openGalleryImg">
           {% if product['is_sold'] %}
             <div class="ribbon">VERKOCHT</div>

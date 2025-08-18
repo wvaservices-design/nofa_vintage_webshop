@@ -24,6 +24,11 @@
     {% endfor %}
   {% endif %}
 {% endwith %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}{% endblock %}
 </main>
 <footer class="footer"><div class="container footer-inner">

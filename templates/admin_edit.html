@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <h1 style="font-family:'Playfair Display',serif;margin-top:0">Bewerken: {{ product['title'] }}</h1>
 
@@ -27,7 +32,7 @@
   <div class="grid">
     {% for img in images %}
       <div class="card">
-        <img src="{{ url_for('uploaded_file', filename=img['filename']) }}" alt="" class="product-image">
+        <img src="{{ img_src(img['filename']) }}" alt="" class="product-image">
         <div class="pad" style="display:flex;justify-content:space-between;align-items:center">
           <span class="meta">#{{ loop.index }}</span>
           <form method="post" action="{{ url_for('admin_delete_image', image_id=img['id']) }}" onsubmit="return confirm('Afbeelding verwijderen?');">

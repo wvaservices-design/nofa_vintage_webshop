@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <a href="{{ url_for('index') }}" class="btn">← Terug</a>
   <div class="grid" style="margin-top:16px;grid-template-columns: 1.2fr 1fr">
     <div class="card">
-      <img src="{{ url_for('uploaded_file', filename=product['image_filename']) if product['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ product['title'] }}">
+      <img src="{{ img_src(product['image_filename']) if product['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ product['title'] }}">
     </div>
     <div>
       <h1 style="font-family:'Playfair Display',serif;margin-top:0">{{ product['title'] }}</h1>

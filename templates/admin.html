@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
 {% block content %}
   <h1 style="font-family:'Playfair Display',serif;margin-top:0">Beheer</h1>
   <p><a class="btn" href="{{ url_for('admin_bulk_import') }}">Bulk import (.zip)</a></p>
@@ -23,7 +28,7 @@
   <div class="grid">
     {% for p in products %}
       <div class="card">
-        <img src="{{ url_for('uploaded_file', filename=p['image_filename']) if p['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ p['title'] }}">
+        <img src="{{ img_src(p['image_filename']) if p['image_filename'] else url_for('static', filename='placeholder.png') }}" alt="{{ p['title'] }}">
         <div class="pad">
           <div style="font-weight:700">{{ p['title'] }}</div>
           <div class="meta">Start: €{{ '%.2f'|format(p['price_start']) }} · Status: {% if p['is_sold'] %}Verkocht{% else %}Actief{% endif %}</div>
