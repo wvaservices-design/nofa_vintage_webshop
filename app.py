@@ -4,7 +4,7 @@ from email.message import EmailMessage
 import cloudinary
 import cloudinary.uploader
 import zipfile, tempfile, shutil
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, abort, session, session
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, abort, session, session, session
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 
@@ -214,7 +214,7 @@ def place_bid(pid):
         body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}"
     )
     print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})@app.route("/admin", endpoint="admin", methods=["GET","POST"])
-@app.route("/admin", methods=["GET","POST"], endpoint="admin")
+@app.route("/admin", methods=["GET","POST"])
 def admin():
     admin_password = os.getenv("ADMIN_PASSWORD","")
     if request.method == "POST" and request.form.get("action") == "login":
