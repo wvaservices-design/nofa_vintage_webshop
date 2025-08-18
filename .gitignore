@@ -13,3 +13,8 @@ __pycache__/
 *.pyc
 static/uploads/*
 !static/uploads/.gitkeep
+.DS_Store
+Fotos/
+*.zip
+app.backup.*
+templates.backup.*
