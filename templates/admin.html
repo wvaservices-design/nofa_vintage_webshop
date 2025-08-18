@@ -29,7 +29,7 @@
           <div class="meta">Start: €{{ '%.2f'|format(p['price_start']) }} · Status: {% if p['is_sold'] %}Verkocht{% else %}Actief{% endif %}</div>
 
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-            <a class="btn" href="{{ url_for('admin_edit', pid=p['id']) }}">Bewerken</a>
+            <a class="btn" href="/admin">Bewerken</a>
 
             <form method="post" action="{{ url_for('mark_sold', pid=p['id']) }}">
               <button class="btn" {% if p['is_sold'] %}disabled{% endif %} type="submit">Markeer verkocht</button>
