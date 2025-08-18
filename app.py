@@ -191,6 +191,57 @@ def product_detail(pid):
 
 @app.route("/product/<int:pid>/bid", methods=["POST"])
 def place_bid(pid):
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    amount = request.form.get("amount", "").strip()
+
+    if not name or not email or not amount:
+        flash("Vul alle velden in.", "error")
+        return redirect(url_for("product_detail", pid=pid))
+
+    try:
+        amount = float(amount.replace(",", "."))
+    except ValueError:
+        flash("Bedrag is ongeldig.", "error")
+        return redirect(url_for("product_detail", pid=pid))
+
+    conn = get_db()
+    try:
+        product = conn.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+        if not product:
+            flash("Product niet gevonden.", "error")
+            return redirect(url_for("index"))
+
+        # huidige hoogste bod bepalen
+        highest_row = conn.execute("SELECT MAX(amount) as max_amount FROM bids WHERE product_id=?", (pid,)).fetchone()
+        current_highest = highest_row["max_amount"] if highest_row and highest_row["max_amount"] is not None else product["price_start"]
+
+        if amount <= current_highest:
+            flash(f"Je bod moet hoger zijn dan €{current_highest:.2f}.", "error")
+            return redirect(url_for("product_detail", pid=pid))
+
+        # bod opslaan
+        conn.execute(
+            "INSERT INTO bids (product_id, name, email, amount, created_at) VALUES (?,?,?,?,?)",
+            (pid, name, email, amount, datetime.utcnow().isoformat())
+        )
+        conn.commit()
+
+    finally:
+        conn.close()
+
+    # mail sturen (best effort)
+    try:
+        send_email(
+            subject=f"Nieuw bod op {product['title']}",
+            body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}"
+        )
+    except Exception:
+        pass
+
+    flash("Je bod is geplaatst! We nemen contact op als je wint.", "success")
+    return redirect(url_for("product_detail", pid=pid))
+
     name = request.form.get("name","").strip()
     email = request.form.get("email","").strip()
     amount = request.form.get("amount","").strip()
