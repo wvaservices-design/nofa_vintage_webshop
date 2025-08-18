@@ -23,7 +23,7 @@ input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid 
 .flash.success{background:#dcfce7;border:1px solid #bbf7d0}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted)}
 
-/* --- Noah Classico: afmetingen productafbeeldingen --- */
+/* --- NOFA Vintage: afmetingen productafbeeldingen --- */
 .product-image {
   max-width: 100%;
   height: auto;
@@ -51,7 +51,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted)}
   cursor: pointer; /* laat zien dat je kan klikken */
 }
 
-/* --- Klassiek thema Noah Classico --- */
+/* --- Klassiek thema NOFA Vintage --- */
 :root{
   --gold:#b58934;
   --gold-soft:#d6b675;
@@ -121,7 +121,7 @@ footer{background:linear-gradient(0deg, rgba(245,240,230,.7), rgba(245,240,230,.
 .footer-note{display:flex;align-items:center;gap:10px;justify-content:center}
 .footer-note .sep{width:8px;height:8px;border-radius:999px;background:var(--gold)}
 
-/* --- Klassiek thema Noah Classico --- */
+/* --- Klassiek thema NOFA Vintage --- */
 :root{
   --gold:#b58934;
   --gold-soft:#d6b675;
@@ -322,7 +322,7 @@ header, footer {
   padding: 16px 0;
 }
 
-/* === FINAL THEME OVERRIDES (Noah Classico) === */
+/* === FINAL THEME OVERRIDES (NOFA Vintage) === */
 :root{
   --paper:#f5f1e6; --ink:#1f2937; --gold:#b58934; --line:#e5e7eb;
 }

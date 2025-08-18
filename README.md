@@ -1,4 +1,4 @@
-# Noah Classico — mini-webshop met bieden
+# NOFA Vintage — mini-webshop met bieden
 
 Een simpele Flask-app om meubels te plaatsen, biedingen te ontvangen en (optioneel) e-mailnotificaties te versturen.
 
@@ -31,4 +31,4 @@ Vul in `.env` de SMTP-gegevens in. Bij elk nieuw bod wordt een mail gestuurd naa
 
 Deze demo heeft minimale beveiliging (één admin-wachtwoord en geen CSRF). Voor productie: voeg echte auth toe, beperk admin-routes, gebruik HTTPS en een sterk `SECRET_KEY`.
 
-Veel succes met Noah Classico! ✨
+Veel succes met NOFA Vintage! ✨
