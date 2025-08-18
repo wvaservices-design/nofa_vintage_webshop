@@ -72,6 +72,10 @@ def init_db():
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def _email_config_snapshot():
+    keys = ["SMTP_SERVER","SMTP_PORT","SMTP_USERNAME","FROM_EMAIL","ADMIN_EMAIL"]
+    return {k: os.getenv(k) for k in keys}
+
 def send_email(subject, body):
     smtp_server = os.getenv("SMTP_SERVER"); smtp_port = os.getenv("SMTP_PORT")
     smtp_user = os.getenv("SMTP_USERNAME"); smtp_pass = os.getenv("SMTP_PASSWORD")
@@ -177,12 +181,11 @@ def place_bid(pid):
     conn.execute("INSERT INTO bids (product_id, name, email, amount, created_at) VALUES (?,?,?,?,?)",
                  (pid, name, email, amount, datetime.utcnow().isoformat()))
     conn.commit(); conn.close()
-    send_email(subject=f"Nieuw bod op {product['title']}",
-               body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}")
-    flash("Je bod is geplaatst! We nemen contact op als je wint.", "success")
-    return redirect(url_for("product_detail", pid=pid))
-
-@app.route("/admin", methods=["GET","POST"])
+    ok_mail = send_email(
+        subject=f"Nieuw bod op {product['title']}",
+        body=f"Er is een nieuw bod van €{amount:.2f} door {name} ({email}) op product #{pid} - {product['title']}"
+    )
+    print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})@app.route("/admin", methods=["GET","POST"])
 def admin():
     admin_password = os.getenv("ADMIN_PASSWORD","")
     if request.method == "POST" and request.form.get("action") == "login":
@@ -487,6 +490,33 @@ def admin_bulk_import():
 
         return redirect(url_for("admin"))
     return render_template("admin_bulk.html")
+
+
+@app.route("/admin/test-email")
+def admin_test_email():
+    from flask import session
+    if not session.get("is_admin"):
+        abort(403)
+    cfg = _email_config_snapshot()
+    # check missing vars
+    missing = [k for k,v in cfg.items() if not v] + (["SMTP_PASSWORD"] if not os.getenv("SMTP_PASSWORD") else [])
+    lines = []
+    if missing:
+        lines.append("❌ Ontbrekende variabelen: " + ", ".join(missing))
+    # probeer echt te sturen
+    ok = False
+    err = None
+    try:
+        sent = send_email("NOFA Vintage testmail", "Test vanaf /admin/test-email")
+        ok = bool(sent)
+    except Exception as e:
+        err = str(e)
+    lines.append("Config snapshot: " + str({k:("✔️" if cfg.get(k) else "—") for k in ["SMTP_SERVER","SMTP_PORT","SMTP_USERNAME","FROM_EMAIL","ADMIN_EMAIL"]}))
+    lines.append("FROM_EMAIL == SMTP_USERNAME ? " + ("✔️ ja" if (os.getenv("FROM_EMAIL")==os.getenv("SMTP_USERNAME")) else f"❌ nee ({os.getenv('FROM_EMAIL')} != {os.getenv('SMTP_USERNAME')})"))
+    lines.append("Resultaat versturen: " + ("✔️ OK" if ok else "❌ Mislukt"))
+    if err:
+        lines.append("Fout: " + err)
+    return "<pre>"+ "\n".join(lines) + "</pre>", (200 if ok else 500)
 
 if __name__ == "__main__":
     init_db()
