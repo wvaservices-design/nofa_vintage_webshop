@@ -546,6 +546,18 @@ def admin_test_email():
         lines.append("Fout: " + err)
     return "<pre>"+ "\n".join(lines) + "</pre>", (200 if ok else 500)
 
+
+@app.route("/admin", methods=["GET","POST"], endpoint="admin")
+def _admin_alias():
+    # Zoek de echte admin-view en roep die aan
+    try:
+        return admin_edit()
+    except Exception:
+        try:
+            return admin()
+        except Exception:
+            abort(404)
+
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
