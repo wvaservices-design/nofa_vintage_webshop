@@ -247,7 +247,7 @@ def admin():
     return render_template("admin.html", products=products, bids_by_product=bids_by_product)
 
 @app.route("/admin/edit/<int:pid>", methods=["GET","POST"])
-def admin_edit(pid):
+def admin(pid):
     if not session.get("is_admin"): abort(403)
     conn = get_db()
     product = conn.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
