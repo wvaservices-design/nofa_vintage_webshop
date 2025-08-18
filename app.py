@@ -4,7 +4,7 @@ from email.message import EmailMessage
 import cloudinary
 import cloudinary.uploader
 import zipfile, tempfile, shutil
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, abort, session
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, abort, session, session
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 
