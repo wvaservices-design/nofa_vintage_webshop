@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% macro img_src(fn) -%}
-  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+  
 {%- endmacro %}
 
 {% block content %}
   <h1 style="font-family:'Playfair Display',serif;margin-top:0">Beheer</h1>
-  <p><a class="btn" href="{{ url_for('admin_bulk_import') }}">Bulk import (.zip)</a></p>
-
   <div class="card" style="margin-bottom:18px">
     <div class="pad">
       <h3 style="margin:0 0 8px 0">Nieuw product</h3>
@@ -36,11 +34,11 @@
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <a class="btn" href="/admin">Bewerken</a>
 
-            <form method="post" action="{{ url_for('mark_sold', pid=p['id']) }}">
+            <form method="post" action="/admin/mark_sold/{{ p.id }}">
               <button class="btn" {% if p['is_sold'] %}disabled{% endif %} type="submit">Markeer verkocht</button>
             </form>
 
-            <form method="post" action="{{ url_for('admin_delete_product', pid=p['id']) }}" onsubmit="return confirm('Dit verwijdert het product, alle foto’s en biedingen. Weet je het zeker?');">
+            <form method="post" action="/admin/delete/{{ p.id }}" onsubmit="return confirm('Dit verwijdert het product, alle foto’s en biedingen. Weet je het zeker?');">
               <button class="btn" type="submit" style="background:#e11d48;color:#fff;border:none">Verwijderen</button>
             </form>
           </div>
