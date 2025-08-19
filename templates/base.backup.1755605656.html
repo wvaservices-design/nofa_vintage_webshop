@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOFA Vintage</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon & Social preview -->
+  <link rel="icon" href="{{ url_for('static', filename='logo.svg') }}" type="image/svg+xml">
+  <meta property="og:title" content="NOFA Vintage — Vintage & Design">
+  <meta property="og:description" content="Handpicked meubels en objecten. Bied mee op unieke stukken.">
+  <meta property="og:image" content="{{ url_for('static', filename='logo.svg', _external=True) }}">
+  <meta property="og:url" content="{{ request.url_root }}">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container wrap">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="NOFA Vintage Logo">
+        <h1 class="site-title">NOFA Vintage</h1>
+      </div>
+      <nav>
+        <a class="btn" href="{{ url_for('index') }}">Collectie</a>
+        <a class="btn" href="/admin">Beheer</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    
+{% macro img_src(fn) -%}
+  {%- if fn and fn.startswith('http') -%}{{ fn }}{%- else -%}{{ url_for('uploaded_file', filename=fn) }}{%- endif -%}
+{%- endmacro %}
+
+{% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © NOFA Vintage — vintage & design. Alle rechten voorbehouden. <span style="">Powered by Wouter</span>.
+  </footer>
+
+  <!-- Lichtbak voor afbeeldingen -->
+  <div id="lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.9);justify-content:center;align-items:center;z-index:9999;">
+    <img id="lightbox-img" src="" style="max-width:90%;max-height:90%;border-radius:18px;box-shadow:0 0 20px rgba(0,0,0,0.5);">
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      document.querySelectorAll('.product-image, .product-detail-image').forEach(el=>{
+        el.addEventListener('click', ()=>{ img.src = el.src; lb.style.display='flex'; });
+      });
+      lb.addEventListener('click', ()=> lb.style.display='none');
+    });
+  </script>
+</body>
+</html>

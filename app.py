@@ -4,7 +4,8 @@ from email.message import EmailMessage
 import cloudinary
 import cloudinary.uploader
 import zipfile, tempfile, shutil
-from flask import Flask, abort, flash, redirect, render_template, request, send_from_directory, session, url_for
+from flask import Flask, abort, flash, redirect, render_template, request, send_from_directory, url_for, session
+import flask
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 
@@ -285,6 +286,7 @@ def place_bid(pid):
     print("[BID EMAIL]", {"product_id": pid, "amount": amount, "bidder": email, "mail_ok": ok_mail})
 @app.route("/admin", methods=["GET", "POST"], endpoint="admin")
 def admin():
+    
     admin_password = os.getenv("ADMIN_PASSWORD", "")
     if request.method == "POST" and request.form.get("action") == "login":
         if request.form.get("password") != admin_password:
@@ -292,7 +294,7 @@ def admin():
         else:
             session["is_admin"] = True; flash("Ingelogd als admin.", "success"); return redirect(url_for("admin"))
 
-    if not session.get("is_admin"): return render_template("admin_login.html")
+    if not flask.session.get("is_admin"): return render_template("admin_login.html")
 
     if request.method == "POST" and request.form.get("action") == "add_product":
         title = request.form.get("title","").strip()
@@ -346,7 +348,91 @@ def admin():
 
 @app.route("/admin/edit/<int:pid>", methods=["GET","POST"])
 def admin_edit(pid):
-    if not session.get("is_admin"):
+    
+    if not flask.session.get("is_admin"):
+        abort(403)
+
+    conn = get_db()
+    cur = conn.cursor()
+    product = cur.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+    if not product:
+        conn.close()
+        flash("Product niet gevonden.", "error")
+        return redirect(url_for("admin"))
+
+    if request.method == "POST":
+        title = request.form.get("title","").strip()
+        description = request.form.get("description","").strip()
+        price_start = request.form.get("price_start","").strip()
+        is_sold = 1 if request.form.get("is_sold") == "on" else 0
+
+        if not title:
+            flash("Titel is verplicht.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        try:
+            price_start = float(price_start.replace(",", ".")) if price_start else product["price_start"]
+        except ValueError:
+            flash("Startprijs ongeldig.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        cur.execute(
+            "UPDATE products SET title=?, description=?, price_start=?, is_sold=? WHERE id=?",
+            (title or product["title"], description, price_start, is_sold, pid)
+        )
+        conn.commit()
+        conn.close()
+        flash("Product bijgewerkt.", "success")
+        return redirect(url_for("admin_edit", pid=pid))
+
+    conn.close()
+    return render_template("admin_edit.html", product=product)
+
+    if not flask.session.get("is_admin"):
+        abort(403)
+
+    conn = get_db()
+    cur = conn.cursor()
+    product = cur.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+    if not product:
+        conn.close()
+        flash("Product niet gevonden.", "error")
+        return redirect(url_for("admin"))
+
+    if request.method == "POST":
+        title = request.form.get("title","").strip()
+        description = request.form.get("description","").strip()
+        price_start = request.form.get("price_start","").strip()
+        is_sold = 1 if request.form.get("is_sold") == "on" else 0
+
+        if not title:
+            flash("Titel is verplicht.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        try:
+            price_start = float(price_start.replace(",", ".")) if price_start else product["price_start"]
+        except ValueError:
+            flash("Startprijs ongeldig.", "error")
+            conn.close()
+            return redirect(url_for("admin_edit", pid=pid))
+
+        # Update velden
+        cur.execute(
+            "UPDATE products SET title=?, description=?, price_start=?, is_sold=? WHERE id=?",
+            (title or product["title"], description, price_start, is_sold, pid)
+        )
+        conn.commit()
+        conn.close()
+        flash("Product bijgewerkt.", "success")
+        return redirect(url_for("admin_edit", pid=pid))
+
+    conn.close()
+    return render_template("admin_edit.html", product=product)
+
+    if not flask.session.get("is_admin"):
         abort(403)
 
     conn = get_db()
@@ -388,7 +474,7 @@ def admin_edit(pid):
     return render_template("admin_edit.html", product=product)
 
     from flask import session
-    if not session.get("is_admin"):
+    if not flask.session.get("is_admin"):
         abort(403)
 
     conn = get_db()
@@ -486,7 +572,8 @@ def uploaded_file(filename):
 
 @app.route("/admin/mark_sold/<int:pid>", methods=["POST"])
 def mark_sold(pid):
-    if not session.get("is_admin"):
+    
+    if not flask.session.get("is_admin"):
         abort(403)
     conn = get_db()
     conn.execute("UPDATE products SET is_sold=1 WHERE id=?", (pid,))
@@ -498,7 +585,7 @@ def mark_sold(pid):
 
 @app.route("/admin/delete/<int:pid>", methods=["POST"], endpoint="admin_delete_product")
 def admin_delete_product(pid):
-    if not session.get("is_admin"):
+    if not flask.session.get("is_admin"):
         abort(403)
 
     conn = get_db()
